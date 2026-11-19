@@ -68,11 +68,12 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, DasPocky/Tasto#1.
-- [ ] Nach dem Merge von Tasto#1: Worker `tasto` mit GitHub verbinden (5.6).
+- [ ] Tasto: unter Settings → Builds `endlab-workers-builds` wählen, gescheiterten Bau neu starten. Claude prüft das Ergebnis.
+- [ ] Tote Einträge der Builds-Token-Liste löschen (5.5, Befehl im Chat vom 19.11.2026): zweiter `endlab-workers-builds`, `spieltisch build token`, `tutto-online build token`.
+- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, danach DasPocky/Tasto#1 (bekommt vorher noch Test, Staging, Live getrennt).
 
-**Noch nicht:** die Worker mit GitHub verbinden. Das Verbinden löst sofort einen
-Deploy aus, deshalb erst, wenn Claude die Build-Einstellungen vorbereitet hat (5.6).
+**Noch nicht:** weitere Worker mit GitHub verbinden. Das Verbinden löst sofort einen
+Bau aus, deshalb erst, wenn das Repo die `cf:*`-Skripte hat (5.6).
 
 ---
 
@@ -347,13 +348,21 @@ Builds** den API-Token auf `endlab-workers-builds` und den Deploy-Befehl auf
 `npx wrangler deploy` umstellen, danach den User-Token `spieltisch-build`
 löschen.
 
-### 5.7 Später aufräumen (Claude sagt Bescheid)
+### 5.7 Eigene Arbeit mit CLI
+
+Für Wrangler kein Token: `npx wrangler login` (Anmeldung per Browser,
+zurückziehen mit `npx wrangler logout`). Für die Builds-API, die Wrangler
+nicht kann, einen User-Token mit einem Tag Laufzeit anlegen (Workers Builds
+Configuration Edit, Workers Scripts Read) und danach löschen. Kein
+dauerhafter Token mit allen Rechten.
+
+### 5.8 Später aufräumen (Claude sagt Bescheid)
 
 - [ ] **GitHub-Secrets löschen:** Abfahrt und Spieltisch → **Settings → Secrets and variables → Actions** → `CLOUDFLARE_API_TOKEN` → **Remove**.
 - [ ] **`RELEASE_SECRET` löschen** (wenn die Stimme im Container läuft): als Worker-Secret bei spieltisch und als GitHub-Secret im Repo Spieltisch.
 - [ ] **Worker-Secret `DEPLOY_TOKEN` löschen** (nach dem Spieltisch-Umbau): Workers & Pages → **spieltisch → Settings → Variables and Secrets** → `DEPLOY_TOKEN` → löschen → **Deploy**.
 - [ ] **Alte Account-Tokens löschen:** `github-actions-abfahrt`, `spieltisch-vorschau-cleanup`, `spieltisch-deploy-updates` (Manage account → Account API tokens → **⋯ → Delete**).
-- [ ] **Alte User-Tokens löschen** (nach dem Wechsel des Spieltisch-Bau-Tokens): `spieltisch-build` und `Workers Builds - 2026-11-18 19:41` (My Profile → API Tokens).
+- [ ] **Alte User-Tokens löschen** (nach dem Wechsel des Spieltisch-Bau-Tokens): `spieltisch-build` und `Workers Builds - 2026-11-18 19:41` (My Profile → API Tokens) samt ihren Einträgen in der Builds-Token-Liste.
 
 ---
 
