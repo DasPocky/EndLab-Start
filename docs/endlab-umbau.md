@@ -39,7 +39,7 @@ TypeScript umgestellt.
 | DasPocky/FleetCompass | privat | wird später genau angeschaut |
 | DasPocky/Logistik-Browsergame | privat | Browsergame, Umbau auf TypeScript |
 
-Nicht anfassen: Telehavn und alle anderen Repos.
+Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung.
 
 ### Regeln für die Zusammenarbeit
 
@@ -70,8 +70,8 @@ Nicht anfassen: Telehavn und alle anderen Repos.
 
 - [ ] **Workers Paid bestätigen:** Claude kann den Tarif mit dem Token nicht lesen. Kurz im Dashboard nachsehen (Workers & Pages → Plans).
 - [ ] **Alten Claude-Token löschen:** Profilbild → **My Profile → API Tokens** → User-Token mit Ablauf **31.12.2026** → **⋯ → Delete**. Der neue Token ist geprüft.
-- [ ] **Build-Einstellungen:** entscheiden, wie sie gesetzt werden (Abschnitt 7).
-- [ ] **Telehavn** hängt noch an der Sitzung. Claude fasst es nicht an; beim nächsten Sitzungsstart in der Umgebung weglassen.
+- [ ] **Token ergänzen:** `endlab-platform-admin` um „Workers CI Write“ (Legacy) erweitern, bevor der erste Worker verbunden wird. Die Workers-Builds-API lehnt den Token sonst ab; Claude setzt die Build-Einstellungen dann selbst.
+
 
 **Noch nicht:** die Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Deploy aus, deshalb erst, wenn Claude die Build-Einstellungen vorbereitet hat (5.6).
@@ -396,7 +396,6 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 
 ## 7. Offene Entscheidungen
 
-- **Build-Einstellungen:** Die Workers-Builds-API lehnt `endlab-platform-admin` ab, obwohl Workers Admin laut Doku Workers CI einschließt. Entweder Björn trägt Bau- und Deploy-Befehle beim Verbinden selbst ein (5.6), oder der Token bekommt zusätzlich das Legacy-Recht Workers CI.
 
 - **Übergangszeit** der alten Adressen: 3 Monate?
 - **Browsergame:** Name, Adresse und ob es öffentlich spielbar wird.
