@@ -68,9 +68,8 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] **Token `endlab-workers-builds` anlegen** (5.5). Er fehlt noch in der Liste.
-- [ ] **User-Tokens löschen:** `claude-agent` (alter Claude-Token) und `spieltisch-worker-updates` (nie benutzt).
-
+- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, DasPocky/Tasto#1.
+- [ ] Nach dem Merge von Tasto#1: Worker `tasto` mit GitHub verbinden (5.6).
 
 **Noch nicht:** die Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Deploy aus, deshalb erst, wenn Claude die Build-Einstellungen vorbereitet hat (5.6).
@@ -140,7 +139,7 @@ Cloudflare-Konto „EndLab“, Konto-ID `ef9cbceacd8be6cff839033e54c0cb6b`, Zone
 - Vor dem Bau prüfen: Status von Containers (Beta oder fertig), Grenzen, Größe des Images mit den Modellen, Kosten (laut Cloudflare enthalten im Paid-Plan: 375 vCPU-Minuten und 25 GiB-Stunden Speicher je Monat), Bau des Containers über Workers Builds und ob `endlab-workers-builds` dafür ein zusätzliches Recht braucht (dann ergänzt Björn den Token).
 - Worker-Secrets danach: `ADMIN_PASSWORD`, `REALTIME_APP_TOKEN`.
 - Vorschauen löscht heute der GitHub-Workflow `vorschau.yml` mit einem Cloudflare-Token in GitHub. Das widerspricht dem Ziel „kein Token in GitHub“. Neu: Claude löscht die Vorschau eines Zweigs nach jedem Merge mit `endlab-platform-admin` (`scripts/vorschau-aufraeumen.mjs`); `vorschau.yml` fällt weg.
-- Worker mit Durable Objects bekommen keine Version-URLs; Vorschauen laufen über `wrangler preview`. 12 von 100 DO-Namespaces sind belegt. Die Vorschau `claude/clever-ptolemy-xtkrsj` ist verwaist (löschen), `claude/am-rechner` gehört zum offenen PR #81.
+- Worker mit Durable Objects bekommen keine Version-URLs; Vorschauen laufen über `wrangler preview`. 8 DO-Namespaces sind belegt; mit Workers Paid liegt die Grenze bei 500 statt 100 (Skript und Doku nennen noch 100). Einzige Vorschau: `claude/am-rechner` zum offenen PR #81.
 - `account_id` fehlt in `wrangler.jsonc`.
 - Workflows heute: `ci.yml`, `quiz-belege.yml`, `stimme.yml`, `vorschau.yml`.
 - `workers_dev` ist an. Die Admin-Statusseite liest `main` über die öffentliche GitHub-API, das Repo bleibt deshalb öffentlich.
@@ -251,7 +250,7 @@ gültig bis **31.12.2027**.
 | Token | Art | Eingesetzt in | Zweck |
 |---|---|---|---|
 | endlab-platform-admin | Account | Claude-Sitzungen, Umgebung „EndNET“ | Verwaltung durch Claude (5.4), angelegt |
-| endlab-workers-builds | User | Workers Builds aller Worker | Bauen, Migrieren, Deployen (5.5) |
+| endlab-workers-builds | User | Workers Builds aller Worker | Bauen, Migrieren, Deployen (5.5), angelegt |
 
 Mehr Tokens gibt es nicht. Kein Worker hält einen Cloudflare-Token, auch nicht für FleetCompass und das Browsergame. Sie
 nutzen später ebenfalls `endlab-workers-builds`.
@@ -339,7 +338,7 @@ Für jeden Worker einmal. Claude nennt dir vorher Bau- und Deploy-Befehl.
 1. Workers & Pages → **Worker** → **Settings → Builds → Connect**.
 2. GitHub-Konto **DasPocky** und das passende Repo wählen. Fragt GitHub, ob die Cloudflare-App Zugriff auf das Repo bekommt: nur dieses Repo freigeben.
 3. **Production branch:** `main`.
-4. **Build command:** `npm run cf:build`, **Deploy command:** `npm run cf:deploy`.
+4. **Build command:** `npm run cf:build`, **Deploy command:** `npm run cf:deploy`, **Non-production branch deploy command:** `npm run cf:preview`.
 5. **Non-production branch builds:** an, bei HealthLog **aus**.
 6. **API token:** `endlab-workers-builds` auswählen, keinen neuen anlegen lassen.
 7. **Speichern.** Der erste Bau startet sofort.
@@ -366,10 +365,9 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 
 **Phase 1: Grundlage**
 
-1. Die verwaiste Spieltisch-Vorschau `claude/clever-ptolemy-xtkrsj` löschen (Stand mit `endlab-platform-admin` ist geprüft).
 2. In allen Repos „vor jedem Merge fragen“ in die CLAUDE.md eintragen.
 3. Einheitlichen Prüf-Workflow (Tests, gitleaks) und einheitliche Bau- und Deploy-Befehle festlegen.
-4. **Probelauf mit Tasto:** Workflow und Konto-ID ins Repo, Björn verbindet den Worker (5.6), erster Bau prüfen.
+4. **Probelauf mit Tasto:** Vorlage im PR DasPocky/Tasto#1 (`cf:*`-Skripte, `pruefung.yml`, CLAUDE.md, `docs/betrieb.md`). Nach dem Merge verbindet Björn den Worker (5.6), dann ersten Bau prüfen.
 
 **Phase 2: Umzüge**
 
