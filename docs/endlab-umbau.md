@@ -412,9 +412,11 @@ Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 Alle Apps bekommen ein gemeinsames Erscheinungsbild mit Wiedererkennungswert,
 Grundfarbe Marineblau. Gleiche Farben, Schrift, Abstände und Knopfformen, hell
 und dunkel; „Powered by EndLab“ mit kleinem Zeichen in der Fußzeile jeder App.
-Umgesetzt als gemeinsames Stil-Paket, das alle Apps einbinden. Jede App darf
-eine eigene Akzentfarbe behalten (z. B. Spieltisch „Papierschnitt“ als
-Spiel-Look).
+Umgesetzt als gemeinsames Stil-Paket, das alle Apps einbinden. **Keine
+eigenen Looks je App** (entschieden 19.11.2026): auch Spieltisch
+„Papierschnitt“ und die Papierschnitt-Farben der Startseite gehen im
+gemeinsamen Erscheinungsbild auf; die Regeln dazu in den CLAUDE.md-Dateien
+werden dann ersetzt.
 
 Farbvorschlag:
 
