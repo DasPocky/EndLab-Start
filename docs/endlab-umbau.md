@@ -52,6 +52,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 - **Kein Cloudflare-Token in GitHub.** GitHub Actions laufen nur noch als Prüfung ohne Secrets.
 - Nichts darf hängen bleiben: Jeder Umzug hat einen Rückweg.
 - Erledigtes wird in diesem Dokument gestrichen, nicht als Chronik ergänzt.
+- **Links aufs iPhone** (Einrichtung, Einladungen): als QR-Code im Terminal zeigen und mit der Kamera scannen, z. B. `npx qrcode-terminal "<link>"`. Nicht per Mail oder Messenger schicken.
 
 ### Was Claude technisch kann und was nicht
 
@@ -395,7 +396,7 @@ Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 
 12. Alte Routen weg, `workers_dev` aus, GitHub-Secrets und alte Tokens löschen (5.7), Doku je App. Nach der Übergangszeit 301 auf die Unterdomains.
 
-**EndLab Login (vorgezogen):** eigener Anmeldedienst unter `login.endlab.de` (Repo DasPocky/EndLab-Login, privat), Passkey plus PIN, als Anmeldeweg für Cloudflare Access (OIDC). Plan gemergt am 19.11.2026. Zuerst für die HealthLog-Vorschauen; HealthLog geht erst live, wenn die Vorschau darüber geprüft ist.
+**EndLab Login (vorgezogen):** eigener Anmeldedienst unter `login.endlab.de` (Repo DasPocky/EndLab-Login, privat), Passkey plus PIN, Einladungen für weitere Personen (iPhone, Android, PC), als Anmeldeweg für Cloudflare Access (OIDC). Live seit 19.11.2026, Björns Konto mit Passkey und PIN eingerichtet. Offen: Eintrag in Access, HealthLog-Vorschauen umstellen, danach Wiederherstellungscodes und Notfall-Code.
 
 **Phase 4: neue Apps**
 
