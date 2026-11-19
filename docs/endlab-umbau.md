@@ -68,7 +68,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, DasPocky/Tasto#1.
+- [ ] Startseite: PR DasPocky/EndLab-Start#3 ansehen und „merge“ (Worker ist verbunden).
 
 **Noch nicht:** weitere Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Bau aus, deshalb erst, wenn das Repo die `cf:*`-Skripte hat (5.6).
@@ -342,6 +342,11 @@ Für jeden Worker einmal. Claude nennt dir vorher Bau- und Deploy-Befehl.
 6. **API token:** `endlab-workers-builds` auswählen. **Nie „Create new token“**: Das legt einen Token mit Standardrechten ohne D1 an.
 7. **Speichern.** Der erste Bau startet sofort.
 
+Der Hinweis „This API token is missing the following permissions“ beim
+Auswählen von `endlab-workers-builds` ist harmlos: Er vergleicht mit dem
+automatischen Token und kennt die Rolle Workers Admin nicht. Neue eigene
+Domains legt Claude vorher mit `endlab-platform-admin` an.
+
 Bei Spieltisch ist der Worker schon verbunden: dort unter **Settings →
 Builds** den API-Token auf `endlab-workers-builds` und den Deploy-Befehl auf
 `npx wrangler deploy` umstellen, danach den User-Token `spieltisch-build`
@@ -372,14 +377,14 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 
 **Phase 1: Grundlage**
 
-2. In allen Repos „vor jedem Merge fragen“ in die CLAUDE.md eintragen.
-3. Einheitlichen Prüf-Workflow (Tests, gitleaks) und einheitliche Bau- und Deploy-Befehle festlegen.
-4. **Probelauf mit Tasto:** Worker verbunden, Vorschau-Bau grün (19.11.2026): Staging-D1 `tasto-vorschau` migriert, Vorschau zeigt leere Bestenliste, Live unberührt. Offen: Merge von DasPocky/Tasto#1 und erster Live-Bau.
+Tasto ist fertig (19.11.2026): Vorlage gemergt, Live-Bau über Workers
+Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
+
+1. **Vorlage übertragen**, je Repo ein PR: `cf:*`-Skripte, `pruefung.yml` (Tests, gitleaks), CLAUDE.md mit gemeinsamem Kopf („vor jedem Merge fragen“), README, `docs/betrieb.md`, Konto-ID, `previews`-Block. Danach verbindet Björn den Worker (5.6). Reihenfolge: Startseite (verbunden, PR offen), HealthLog, Abfahrt, Spieltisch, Browsergame (nur CLAUDE.md, `docs/betrieb.md`, gitleaks).
 
 **Phase 2: Umzüge**
 
 5. **Tasto** auf tasto.endlab.de; der alte Pfad leitet um. Basispfad `/tasto` wird `/` (Worker, Vite, Links). Vorschauen brauchen dann eine Adresse unter endlab.de (z. B. `<zweig>.tasto.endlab.de`), weil `workers_dev` ausgeht. Gilt genauso für jeden weiteren Umzug.
-6. **Startseite** an Workers Builds anschließen, ohne inhaltliche Änderung.
 7. **HealthLog** live auf healthlog.endlab.de: Passkeys nur für diese Adresse, VAPID einheitlich, keine Vorschau-Builds.
 8. **Abfahrt** von GitHub Actions auf Workers Builds, dann Umzug auf abfahrt.endlab.de mit Umzugs-Link und neuer Push-Freigabe.
 9. **Spieltisch:** Bau-Token umstellen, Updates auf „Sofort“ vereinfachen (Warte-Modi, `release.mjs`, `DEPLOY_TOKEN` raus), `vorschau.yml` entfernen, Umzug auf spieltisch.endlab.de mit Übertragungs-Code, Doku anpassen.
