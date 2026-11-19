@@ -3,6 +3,7 @@
   "name": "endlab-start",
   "main": "src/index.js",
   "compatibility_date": "2026-09-01",
+  "account_id": "ef9cbceacd8be6cff839033e54c0cb6b",
   // Eigene Dateien (Manifest, Service Worker, Icons) liegen im Code (src/dateien.js) – kein Datei-Upload nötig
   // So hängt der Worker heute (Stand 23.10.2026, aus Cloudflare gelesen). Mit Schritt E3 (docs/plan.md) wird daraus die
   // Route „endlab.de/*“, damit „endlab.de/spieltisch*“ als spezifischere Route zum Spieltisch geht.
@@ -10,5 +11,7 @@
     { "pattern": "endlab.de", "custom_domain": true },
     { "pattern": "www.endlab.de", "custom_domain": true }
   ],
-  "workers_dev": false
+  "workers_dev": false,
+  // Staging: Vorschau je Zweig (wrangler preview). Keine Bindungen, also nichts zu trennen.
+  "previews": {}
 }

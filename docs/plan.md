@@ -1,5 +1,7 @@
 # Plan: EndLab – alle Projekte unter endlab.de, eine App, ein Speicher
 
+> **Abgelöst** durch [`endlab-umbau.md`](endlab-umbau.md) (19.11.2026): Jede App bekommt eine eigene Unterdomain, endlab.de wird reine Startseite. Dieses Dokument bleibt nur als Hintergrund.
+
 Auftrag für den Agenten, der am Spieltisch-Repo arbeitet. Bitte selbst einordnen, wann und in welchen Schritten das passiert. Vor jedem Push fragen (siehe `CLAUDE.md`).
 
 ## Ziel
