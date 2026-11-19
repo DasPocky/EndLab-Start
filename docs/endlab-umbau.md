@@ -68,9 +68,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] Tasto: unter Settings → Builds `endlab-workers-builds` wählen, gescheiterten Bau neu starten. Claude prüft das Ergebnis.
-- [ ] Tote Einträge der Builds-Token-Liste löschen (5.5, Befehl im Chat vom 19.11.2026): zweiter `endlab-workers-builds`, `spieltisch build token`, `tutto-online build token`.
-- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, danach DasPocky/Tasto#1 (bekommt vorher noch Test, Staging, Live getrennt).
+- [ ] PRs ansehen und „merge“ schreiben: DasPocky/EndLab-Start#2, DasPocky/Tasto#1.
 
 **Noch nicht:** weitere Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Bau aus, deshalb erst, wenn das Repo die `cf:*`-Skripte hat (5.6).
@@ -236,7 +234,8 @@ Cloudflare sonst automatisch einen Bau-Token an; das vermeiden wir, indem wir
   - **Bau-Befehl überall gleich:** `npm run cf:build`. Das Skript in `package.json` installiert, testet und baut. Schlägt ein Test fehl, geht nichts live.
   - **Deploy-Befehl überall gleich:** `npm run cf:deploy`. Das Skript führt bei Apps mit D1 zuerst die Migrationen aus, dann `wrangler deploy`. Auch Spieltisch nutzt das.
   - Die Befehle im Dashboard ändern sich nie; was dahinter läuft, ändert Claude per PR. Grund: Die Builds-API nimmt nur User-Tokens, Claude kann die Einstellungen nicht selbst setzen.
-  - **Vorschau-Builds** für andere Zweige an, außer bei HealthLog.
+  - **Version command** `npm run cf:preview`: Vorschau je Zweig über `wrangler preview`.
+  - **Test, Staging, Live getrennt:** Der `previews`-Block in `wrangler.jsonc` bindet eigene Staging-Ressourcen (z. B. D1 `<app>-vorschau`); Vorschauen sehen nie Live-Daten. Migrationen der Staging-D1 über `wrangler.preview-migrations.jsonc`. Vorschau-Adressen sind öffentlich; bei HealthLog kommt Access davor oder es gibt keine Vorschauen.
 - **GitHub Actions** nur für Prüfungen: Tests, gitleaks und bei Spieltisch die Handy-Tests. Ohne Secrets.
 - Die Konto-ID steht in `wrangler.jsonc`.
 - `docs/betrieb.md` mit Bau-Einstellungen, Tokens und Secrets.
@@ -375,7 +374,7 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 
 2. In allen Repos „vor jedem Merge fragen“ in die CLAUDE.md eintragen.
 3. Einheitlichen Prüf-Workflow (Tests, gitleaks) und einheitliche Bau- und Deploy-Befehle festlegen.
-4. **Probelauf mit Tasto:** Vorlage im PR DasPocky/Tasto#1 (`cf:*`-Skripte, `pruefung.yml`, CLAUDE.md, `docs/betrieb.md`). Nach dem Merge verbindet Björn den Worker (5.6), dann ersten Bau prüfen.
+4. **Probelauf mit Tasto:** Worker verbunden, Vorschau-Bau grün (19.11.2026): Staging-D1 `tasto-vorschau` migriert, Vorschau zeigt leere Bestenliste, Live unberührt. Offen: Merge von DasPocky/Tasto#1 und erster Live-Bau.
 
 **Phase 2: Umzüge**
 
