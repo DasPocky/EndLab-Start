@@ -68,8 +68,8 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] **Workers Paid bestätigen:** Claude kann den Tarif mit dem Token nicht lesen. Kurz im Dashboard nachsehen (Workers & Pages → Plans).
-- [ ] **Alten Claude-Token löschen:** Profilbild → **My Profile → API Tokens** → User-Token mit Ablauf **31.12.2026** → **⋯ → Delete**. Der neue Token ist geprüft.
+- [ ] **Token `endlab-workers-builds` anlegen** (5.5). Er fehlt noch in der Liste.
+- [ ] **User-Tokens löschen:** `claude-agent` (alter Claude-Token) und `spieltisch-worker-updates` (nie benutzt).
 
 
 **Noch nicht:** die Worker mit GitHub verbinden. Das Verbinden löst sofort einen
@@ -86,7 +86,7 @@ Deploy aus, deshalb erst, wenn Claude die Build-Einstellungen vorbereitet hat (5
 | Tasto | bleibt und zieht auf tasto.endlab.de |
 | Neue Apps | FleetCompass und Logistik-Browsergame kommen dazu, nach und nach |
 | Sprache neuer Apps | Go-Anwendungen werden in **TypeScript** neu geschrieben und laufen auf Cloudflare |
-| Cloudflare-Tarif | **Workers Paid** |
+| Cloudflare-Tarif | **Workers Paid** (aktiv, Stand 19.11.2026) |
 | Deploy | überall **Workers Builds**: Cloudflare baut nach jedem Push selbst; Tests stehen im Bau-Befehl |
 | GitHub Actions | nur noch Prüfungen (Tests, gitleaks, Handy-Tests), ohne Secrets |
 | Tokens | nur zwei, gültig bis 31.12.2027 (4.3); alle alten werden gelöscht |
@@ -198,16 +198,18 @@ Cloudflare-Konto „EndLab“, Konto-ID `ef9cbceacd8be6cff839033e54c0cb6b`, Zone
 
 | Token heute | Art | Nachfolger |
 |---|---|---|
-| alter Claude-Token (läuft 31.12.2026 ab) | User | endlab-platform-admin |
+| claude-agent (alter Claude-Token, läuft 31.12.2026 ab) | User | endlab-platform-admin; jetzt löschen |
+| spieltisch-worker-updates (nie benutzt) | User | entfällt; jetzt löschen |
 | spieltisch-build | User | endlab-workers-builds |
+| Workers Builds - 2026-11-18 19:41 (automatisch, baut Spieltisch) | User | endlab-workers-builds |
 | github-actions-abfahrt | Account | entfällt (Abfahrt baut über Workers Builds) |
 | spieltisch-vorschau-cleanup | Account | entfällt (Claude räumt nach jedem Merge auf) |
 | spieltisch-deploy-updates | Account | entfällt (nur noch „Sofort“) |
 
 Am 19.11.2026 angelegt und geprüft: `endlab-platform-admin` (aktiv bis 31.12.2027).
 
-Weitere, unbekannte Tokens kann nur Björn sehen (My Profile → API Tokens,
-Manage account → Account API tokens). Beim Verbinden eines Workers legt
+Origin CA key und Cloudflare Tunnel service key bleiben unberührt. Weitere
+Tokens gibt es nicht (Stand 19.11.2026). Beim Verbinden eines Workers legt
 Cloudflare sonst automatisch einen Bau-Token an; das vermeiden wir, indem wir
 `endlab-workers-builds` auswählen.
 
@@ -316,11 +318,12 @@ Account-Tokens. Claude prüft das vor dem ersten Verbinden.
 | Typ | Berechtigung | Stufe |
 |---|---|---|
 | Account | Account Settings | Read |
-| Account | Workers Scripts | Edit |
-| Account | Workers KV Storage | Edit |
-| Account | Workers R2 Storage | Edit |
-| Account | D1 | Edit |
-| Zone | Workers Routes | Edit |
+| Account | Workers | Admin (sonst Workers Scripts Write) |
+| Account | Workers KV Storage | Write |
+| Account | Workers R2 Storage | Write |
+| Account | D1 | Write |
+| Account | Workers Containers | Write |
+| Zone | Workers Routes | Write |
 | User | User Details | Read |
 | User | Memberships | Read |
 
