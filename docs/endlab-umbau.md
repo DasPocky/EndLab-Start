@@ -407,6 +407,31 @@ Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
     - e) Go-Bestand stilllegen.
 14. **FleetCompass:** erst genaue Analyse und Zielbild mit Björn, dann Neubau in TypeScript.
 
+**Phase 5: Erscheinungsbild „Powered by EndLab“** (erst nach dem Umbau)
+
+Alle Apps bekommen ein gemeinsames Erscheinungsbild mit Wiedererkennungswert,
+Grundfarbe Marineblau. Gleiche Farben, Schrift, Abstände und Knopfformen, hell
+und dunkel; „Powered by EndLab“ mit kleinem Zeichen in der Fußzeile jeder App.
+Umgesetzt als gemeinsames Stil-Paket, das alle Apps einbinden. Jede App darf
+eine eigene Akzentfarbe behalten (z. B. Spieltisch „Papierschnitt“ als
+Spiel-Look).
+
+Farbvorschlag:
+
+| Name | Wert | Rolle |
+|---|---|---|
+| Mitternachtsblau | `#0F1E36` | Dunkelmodus-Grund, Schrift auf hell |
+| Marineblau | `#1B2F55` | Hauptfarbe: Knöpfe, Kopfzeile, Zeichen |
+| Preußischblau | `#14385E` | Flächen-Variante |
+| Indigo | `#2E3F7A` | aktive Elemente |
+| Stahlblau | `#4A6F9E` | Links, Symbole, Diagramme |
+| Taubenblau | `#7D93B0` | leise Schrift, Rahmen |
+| Eisblau | `#E6EDF5` | helle Flächen, Karten |
+| Papierweiß | `#F7F8FA` | Grund hell |
+
+Offen: Akzentfarbe (Messing `#C8A24A` oder Koralle `#E8573C`), Schrift,
+Zeichen/Logo, Reihenfolge der Apps.
+
 ---
 
 ## 7. Offene Entscheidungen
