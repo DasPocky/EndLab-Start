@@ -56,7 +56,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 ### Was Claude technisch kann und was nicht
 
 - **GitHub:** Claude liest, pusht auf den Sitzungszweig, legt PRs an und merged sie. Nicht möglich sind: direkt auf `main` pushen, fremde Zweige löschen, Einstellungen, Secrets, Rulesets oder Sichtbarkeit ändern. Das bleibt bei Björn.
-- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (sie nimmt laut Doku nur User-Tokens; Account-Tokens sind „bald“ angekündigt), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Access ist im Konto noch nicht eingeschaltet (Zero Trust).
+- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (sie nimmt laut Doku nur User-Tokens; Account-Tokens sind „bald“ angekündigt), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Zero Trust ist an (Free, Team-Domain `square-dream-ba41.cloudflareaccess.com`), Anmeldung per Einmal-Code.
 
 ### Einstieg einer neuen Sitzung
 
@@ -68,7 +68,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] Startseite: PR DasPocky/EndLab-Start#3 ansehen und „merge“ (Worker ist verbunden).
+- [ ] HealthLog: Vorschau prüfen (Access, Code per Mail) und Handy-Bilder machen, dann „merge“ für DasPocky/HealthLog#1. Danach Secrets setzen (HealthLog `docs/betrieb.md`).
 
 **Noch nicht:** weitere Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Bau aus, deshalb erst, wenn das Repo die `cf:*`-Skripte hat (5.6).
@@ -294,7 +294,7 @@ Angelegt am 19.11.2026 mit dem neuen Rechtemodell von Cloudflare (seit
 15.09.2026, Workers-Rollen Metadata Read-only, Content Read-only, Editor,
 Admin). Keine Legacy-Rechte.
 
-- **Konto EndLab:** Workers Admin; Workers Containers, D1, Workers R2 Storage je Read und Write; Account Settings Read; Access: Apps and Policies Read, Write, Revoke.
+- **Konto EndLab:** Workers Admin; Workers Containers, D1, Workers R2 Storage je Read und Write; Account Settings Read; Access: Apps and Policies Read, Write, Revoke; Access: Organizations, Identity Providers, and Groups Write (seit 19.11.2026).
 - **Zone endlab.de:** Zone Read; DNS, Workers Routes, Zone Settings, SSL and Certificates, Dynamic URL Redirects je Read und Write; Cache Purge.
 - Alle IPs, gültig bis 31.12.2027, eingetragen als Netzwerk-Secret der Umgebung „EndNET“ (Präfix Bearer).
 
@@ -380,7 +380,7 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 Tasto ist fertig (19.11.2026): Vorlage gemergt, Live-Bau über Workers
 Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 
-1. **Vorlage übertragen**, je Repo ein PR: `cf:*`-Skripte, `pruefung.yml` (Tests, gitleaks), CLAUDE.md mit gemeinsamem Kopf („vor jedem Merge fragen“), README, `docs/betrieb.md`, Konto-ID, `previews`-Block. Danach verbindet Björn den Worker (5.6). Reihenfolge: Startseite (verbunden, PR offen), HealthLog, Abfahrt, Spieltisch, Browsergame (nur CLAUDE.md, `docs/betrieb.md`, gitleaks).
+1. **Vorlage übertragen**, je Repo ein PR: `cf:*`-Skripte, `pruefung.yml` (Tests, gitleaks), CLAUDE.md mit gemeinsamem Kopf („vor jedem Merge fragen“), README, `docs/betrieb.md`, Konto-ID, `previews`-Block. Danach verbindet Björn den Worker (5.6). Erledigt: Tasto, Startseite. In Arbeit: HealthLog (PR offen, Worker verbunden, Vorschau hinter Access). Danach Abfahrt, Spieltisch. Browsergame und FleetCompass werden neu gebaut und kommen erst dann auf Cloudflare (Phase 4); bis dahin bleiben ihre Repos unverändert.
 
 **Phase 2: Umzüge**
 
@@ -411,6 +411,7 @@ Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 
 
 - **Übergangszeit** der alten Adressen: 3 Monate?
+- **Access für alle Vorschauen** (Vorschlag, später): Vorschauen von Spieltisch, Abfahrt, Tasto und Startseite hinter dieselbe Freigabe wie HealthLog, dazu Access vor die Spieltisch-Verwaltung. Live-Apps und HealthLog live bleiben ohne Access.
 - **Browsergame:** Name, Adresse und ob es öffentlich spielbar wird.
 - **FleetCompass:** Fachziel und Adresse (später).
 
