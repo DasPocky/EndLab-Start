@@ -56,7 +56,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 ### Was Claude technisch kann und was nicht
 
 - **GitHub:** Claude liest, pusht auf den Sitzungszweig, legt PRs an und merged sie. Nicht möglich sind: direkt auf `main` pushen, fremde Zweige löschen, Einstellungen, Secrets, Rulesets oder Sichtbarkeit ändern. Das bleibt bei Björn.
-- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (sie nimmt laut Doku nur User-Tokens; Account-Tokens sind „bald“ angekündigt), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Zero Trust ist an (Free, Team-Domain `square-dream-ba41.cloudflareaccess.com`), Anmeldung per Einmal-Code.
+- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (sie nimmt laut Doku nur User-Tokens; Account-Tokens sind „bald“ angekündigt), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Zero Trust ist an (Free, Team-Domain `endlab-de.cloudflareaccess.com`), Anmeldung per Einmal-Code.
 
 ### Einstieg einer neuen Sitzung
 
@@ -394,6 +394,8 @@ Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 **Phase 3: Aufräumen**
 
 12. Alte Routen weg, `workers_dev` aus, GitHub-Secrets und alte Tokens löschen (5.7), Doku je App. Nach der Übergangszeit 301 auf die Unterdomains.
+
+**EndLab Login (vorgezogen):** eigener Anmeldedienst unter `login.endlab.de` (Repo DasPocky/EndLab-Login, privat), Passkey plus PIN, als Anmeldeweg für Cloudflare Access (OIDC). Plan gemergt am 19.11.2026. Zuerst für die HealthLog-Vorschauen; HealthLog geht erst live, wenn die Vorschau darüber geprüft ist.
 
 **Phase 4: neue Apps**
 
