@@ -1,8 +1,7 @@
 # Hinweise für Claude
 
 Startseite von endlab.de (eigener Worker). Überblick: `README.md`, Betrieb:
-`docs/betrieb.md`. Gesamtplan aller EndLab-Apps: `docs/endlab-umbau.md` (hier
-im Repo, wird laufend gepflegt: Erledigtes raus, Neues rein).
+`docs/betrieb.md`.
 
 ## Zusammenarbeit (gilt in allen EndLab-Repos)
 
@@ -17,6 +16,8 @@ im Repo, wird laufend gepflegt: Erledigtes raus, Neues rein).
 - Deploy nur über **Cloudflare Workers Builds**, nie von Hand und nie aus
   GitHub Actions. GitHub Actions prüfen nur.
 - Nichts darf hängen bleiben: Jede Änderung am Betrieb hat einen Rückweg.
+- **Keine Ideen, Konzepte oder Pläne im Repo.** Ins Repo kommt nur, was gebaut
+  ist und gilt: Code, Tests, Betriebsdoku, CLAUDE.md. Vorschläge nur im Chat.
 
 ## Arbeiten im Repo
 
