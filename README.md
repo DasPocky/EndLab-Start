@@ -1,9 +1,7 @@
 # EndLab – Startseite
 
 Startseite von **https://endlab.de** (Cloudflare Worker `endlab-start`).
-Sie zeigt eine Kachel je Projekt. Jede App bekommt eine eigene Unterdomain
-unter endlab.de; Plan und Stand stehen in
-[`docs/endlab-umbau.md`](docs/endlab-umbau.md).
+Sie zeigt eine Kachel je Projekt.
 
 - `src/index.js` – Startseite, www → endlab.de, Sicherheits-Kopfzeilen, eigene Dateien
 - `public/` – Manifest, Service Worker (fasst Projektpfade nie an), Installationshinweis, Icons
