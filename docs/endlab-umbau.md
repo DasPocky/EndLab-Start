@@ -68,7 +68,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 ## 1. Offen bei Björn
 
-- [ ] Startseite: PR ansehen, „merge“, danach Worker `endlab-start` mit GitHub verbinden (5.6).
+- [ ] Startseite: PR DasPocky/EndLab-Start#3 ansehen und „merge“ (Worker ist verbunden).
 
 **Noch nicht:** weitere Worker mit GitHub verbinden. Das Verbinden löst sofort einen
 Bau aus, deshalb erst, wenn das Repo die `cf:*`-Skripte hat (5.6).
@@ -342,6 +342,11 @@ Für jeden Worker einmal. Claude nennt dir vorher Bau- und Deploy-Befehl.
 6. **API token:** `endlab-workers-builds` auswählen. **Nie „Create new token“**: Das legt einen Token mit Standardrechten ohne D1 an.
 7. **Speichern.** Der erste Bau startet sofort.
 
+Der Hinweis „This API token is missing the following permissions“ beim
+Auswählen von `endlab-workers-builds` ist harmlos: Er vergleicht mit dem
+automatischen Token und kennt die Rolle Workers Admin nicht. Neue eigene
+Domains legt Claude vorher mit `endlab-platform-admin` an.
+
 Bei Spieltisch ist der Worker schon verbunden: dort unter **Settings →
 Builds** den API-Token auf `endlab-workers-builds` und den Deploy-Befehl auf
 `npx wrangler deploy` umstellen, danach den User-Token `spieltisch-build`
@@ -375,7 +380,7 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 Tasto ist fertig (19.11.2026): Vorlage gemergt, Live-Bau über Workers
 Builds grün, Staging mit eigener D1. Tasto ist die Vorlage für alle Repos.
 
-1. **Vorlage übertragen**, je Repo ein PR: `cf:*`-Skripte, `pruefung.yml` (Tests, gitleaks), CLAUDE.md mit gemeinsamem Kopf („vor jedem Merge fragen“), README, `docs/betrieb.md`, Konto-ID, `previews`-Block. Danach verbindet Björn den Worker (5.6). Reihenfolge: Startseite (PR offen), HealthLog, Abfahrt, Spieltisch, Browsergame (nur CLAUDE.md, `docs/betrieb.md`, gitleaks).
+1. **Vorlage übertragen**, je Repo ein PR: `cf:*`-Skripte, `pruefung.yml` (Tests, gitleaks), CLAUDE.md mit gemeinsamem Kopf („vor jedem Merge fragen“), README, `docs/betrieb.md`, Konto-ID, `previews`-Block. Danach verbindet Björn den Worker (5.6). Reihenfolge: Startseite (verbunden, PR offen), HealthLog, Abfahrt, Spieltisch, Browsergame (nur CLAUDE.md, `docs/betrieb.md`, gitleaks).
 
 **Phase 2: Umzüge**
 
