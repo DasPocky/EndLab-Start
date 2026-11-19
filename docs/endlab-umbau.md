@@ -378,7 +378,7 @@ Jeder Schritt läuft erst als Vorschau mit Handy-Bildern und geht nach Björns
 
 **Phase 2: Umzüge**
 
-5. **Tasto** auf tasto.endlab.de; der alte Pfad leitet um.
+5. **Tasto** auf tasto.endlab.de; der alte Pfad leitet um. Basispfad `/tasto` wird `/` (Worker, Vite, Links). Vorschauen brauchen dann eine Adresse unter endlab.de (z. B. `<zweig>.tasto.endlab.de`), weil `workers_dev` ausgeht. Gilt genauso für jeden weiteren Umzug.
 6. **Startseite** an Workers Builds anschließen, ohne inhaltliche Änderung.
 7. **HealthLog** live auf healthlog.endlab.de: Passkeys nur für diese Adresse, VAPID einheitlich, keine Vorschau-Builds.
 8. **Abfahrt** von GitHub Actions auf Workers Builds, dann Umzug auf abfahrt.endlab.de mit Umzugs-Link und neuer Push-Freigabe.
