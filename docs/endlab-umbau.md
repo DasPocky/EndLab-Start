@@ -56,7 +56,7 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 ### Was Claude technisch kann und was nicht
 
 - **GitHub:** Claude liest, pusht auf den Sitzungszweig, legt PRs an und merged sie. Nicht möglich sind: direkt auf `main` pushen, fremde Zweige löschen, Einstellungen, Secrets, Rulesets oder Sichtbarkeit ändern. Das bleibt bei Björn.
-- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (Fehler „Authentication error“ trotz Workers Admin), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Access ist im Konto noch nicht eingeschaltet (Zero Trust).
+- **Cloudflare:** Mit `endlab-platform-admin` (geprüft am 19.11.2026) kann Claude Worker, D1, R2, Containers, DNS, Routen, eigene Domains, Weiterleitungen und Zoneneinstellungen lesen und ändern, auch Vorschauen löschen. **Nicht** möglich sind: die Workers-Builds-API (sie nimmt laut Doku nur User-Tokens; Account-Tokens sind „bald“ angekündigt), der Tarif (Abrechnung ist nicht freigegeben), Tokens, Mitglieder sowie das Verbinden eines Workers mit GitHub. Access ist im Konto noch nicht eingeschaltet (Zero Trust).
 
 ### Einstieg einer neuen Sitzung
 
@@ -70,7 +70,6 @@ Nicht anfassen: Telehavn und alle anderen Repos. Telehavn bleibt in der Umgebung
 
 - [ ] **Workers Paid bestätigen:** Claude kann den Tarif mit dem Token nicht lesen. Kurz im Dashboard nachsehen (Workers & Pages → Plans).
 - [ ] **Alten Claude-Token löschen:** Profilbild → **My Profile → API Tokens** → User-Token mit Ablauf **31.12.2026** → **⋯ → Delete**. Der neue Token ist geprüft.
-- [ ] **Token ergänzen:** `endlab-platform-admin` um „Workers CI Write“ (Legacy) erweitern, bevor der erste Worker verbunden wird. Die Workers-Builds-API lehnt den Token sonst ab; Claude setzt die Build-Einstellungen dann selbst.
 
 
 **Noch nicht:** die Worker mit GitHub verbinden. Das Verbinden löst sofort einen
@@ -232,8 +231,9 @@ Cloudflare sonst automatisch einen Bau-Token an; das vermeiden wir, indem wir
 ### 4.2 Jedes Repo hat
 
 - **Workers Builds** am Worker: Produktionszweig `main`, Token `endlab-workers-builds`.
-  - **Bau-Befehl:** Installieren, Tests, Build, z. B. `npm ci && npm test && npm run build`. Schlägt ein Test fehl, geht nichts live.
-  - **Deploy-Befehl:** bei Apps mit D1 zuerst die Migrationen, dann `npx wrangler deploy`. Auch Spieltisch nutzt künftig `npx wrangler deploy`.
+  - **Bau-Befehl überall gleich:** `npm run cf:build`. Das Skript in `package.json` installiert, testet und baut. Schlägt ein Test fehl, geht nichts live.
+  - **Deploy-Befehl überall gleich:** `npm run cf:deploy`. Das Skript führt bei Apps mit D1 zuerst die Migrationen aus, dann `wrangler deploy`. Auch Spieltisch nutzt das.
+  - Die Befehle im Dashboard ändern sich nie; was dahinter läuft, ändert Claude per PR. Grund: Die Builds-API nimmt nur User-Tokens, Claude kann die Einstellungen nicht selbst setzen.
   - **Vorschau-Builds** für andere Zweige an, außer bei HealthLog.
 - **GitHub Actions** nur für Prüfungen: Tests, gitleaks und bei Spieltisch die Handy-Tests. Ohne Secrets.
 - Die Konto-ID steht in `wrangler.jsonc`.
@@ -336,7 +336,7 @@ Für jeden Worker einmal. Claude nennt dir vorher Bau- und Deploy-Befehl.
 1. Workers & Pages → **Worker** → **Settings → Builds → Connect**.
 2. GitHub-Konto **DasPocky** und das passende Repo wählen. Fragt GitHub, ob die Cloudflare-App Zugriff auf das Repo bekommt: nur dieses Repo freigeben.
 3. **Production branch:** `main`.
-4. **Build command** und **Deploy command:** wie von Claude vorgegeben.
+4. **Build command:** `npm run cf:build`, **Deploy command:** `npm run cf:deploy`.
 5. **Non-production branch builds:** an, bei HealthLog **aus**.
 6. **API token:** `endlab-workers-builds` auswählen, keinen neuen anlegen lassen.
 7. **Speichern.** Der erste Bau startet sofort.
