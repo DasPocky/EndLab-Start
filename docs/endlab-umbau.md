@@ -303,33 +303,32 @@ Workers Observability und Workers Tail. D1, R2 und KV haben noch keine neuen
 Rollen; ihre Rechte sind nicht Legacy. Workers Routes braucht weiter das
 Zonenrecht.
 
-### 5.5 Token `endlab-workers-builds` (User-Token)
+### 5.5 Token `endlab-workers-builds` (User-Token) – angelegt und bei Builds eingetragen
 
-Workers Builds akzeptiert laut Doku nur User-Tokens, deshalb liegt dieser
-Token in deinem Profil, nicht im Konto. Ob das mit dem neuen Rechtemodell
-noch gilt, ist offen: Die neuen Workers-Rollen wirken bei Wrangler nur mit
-Account-Tokens. Claude prüft das vor dem ersten Verbinden.
+Workers Builds nimmt nur User-Tokens. Es führt eine **eigene Token-Liste**
+(Name, Wert, Verweis auf den Cloudflare-Token). Wird ein Token danach
+bearbeitet, gerollt oder gelöscht, bleibt der Eintrag in der Liste stehen,
+ist aber tot (Fehler „build token … has been deleted or rolled“). Einen
+eigenen Token trägt man nur über die API ein, nicht im Dashboard.
 
-1. dash.cloudflare.com → Profilbild → **My Profile → API Tokens → Create Token** → bei **Custom token** auf **Get started**.
-2. **Token name:** `endlab-workers-builds`
-3. **Permissions** (die Rechte des automatischen Bau-Tokens plus D1):
+**Regel: `endlab-workers-builds` nie mehr bearbeiten, rollen oder löschen.**
+Muss er doch geändert werden: ändern, rollen und mit dem Wert neu eintragen
+(unten).
 
-| Typ | Berechtigung | Stufe |
-|---|---|---|
-| Account | Account Settings | Read |
-| Account | Workers | Admin (sonst Workers Scripts Write) |
-| Account | Workers KV Storage | Write |
-| Account | Workers R2 Storage | Write |
-| Account | D1 | Write |
-| Account | Workers Containers | Write |
-| Zone | Workers Routes | Write |
-| User | User Details | Read |
-| User | Memberships | Read |
+Stand 19.11.2026 (User-Token in Björns Profil, Account EndLab, Zone
+endlab.de, gültig bis 31.12.2027): Workers Admin, Workers Builds
+Configuration Edit (Legacy, nötig für die Builds-API), D1, R2, KV,
+Containers, Account Settings Read, Workers Routes, User Details Read,
+Memberships Read. Bei Builds eingetragen als Build-Token
+`fe0a359d-da72-489b-807c-7e298d1729b5`.
 
-4. **Account Resources:** Include → **EndLab**. **Zone Resources:** Include → **Specific zone → endlab.de**.
-5. **Client IP Address Filtering:** leer lassen.
-6. **TTL:** Enddatum **31.12.2027**.
-7. **Continue to summary → Create Token**. Den Wert brauchst du nicht zu speichern: Beim Verbinden wählst du den Token aus der Liste.
+Eintragen bei Builds (Björn, Terminal mit fish):
+
+```
+read -s TOKEN
+set ID (curl -s https://api.cloudflare.com/client/v4/user/tokens/verify -H "Authorization: Bearer $TOKEN" | python3 -c "import json,sys;print(json.load(sys.stdin)['result']['id'])")
+curl -s -X POST https://api.cloudflare.com/client/v4/accounts/ef9cbceacd8be6cff839033e54c0cb6b/builds/tokens -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "{\"build_token_name\":\"endlab-workers-builds\",\"build_token_secret\":\"$TOKEN\",\"cloudflare_token_id\":\"$ID\"}"
+```
 
 ### 5.6 Worker mit GitHub verbinden (erst auf Ansage)
 
@@ -340,7 +339,7 @@ Für jeden Worker einmal. Claude nennt dir vorher Bau- und Deploy-Befehl.
 3. **Production branch:** `main`.
 4. **Build command:** `npm run cf:build`, **Deploy command:** `npm run cf:deploy`, **Non-production branch deploy command:** `npm run cf:preview`.
 5. **Non-production branch builds:** an, bei HealthLog **aus**.
-6. **API token:** `endlab-workers-builds` auswählen, keinen neuen anlegen lassen.
+6. **API token:** `endlab-workers-builds` auswählen. **Nie „Create new token“**: Das legt einen Token mit Standardrechten ohne D1 an.
 7. **Speichern.** Der erste Bau startet sofort.
 
 Bei Spieltisch ist der Worker schon verbunden: dort unter **Settings →
