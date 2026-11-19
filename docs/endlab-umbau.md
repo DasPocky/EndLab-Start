@@ -355,6 +355,7 @@ löschen.
 - [ ] **`RELEASE_SECRET` löschen** (wenn die Stimme im Container läuft): als Worker-Secret bei spieltisch und als GitHub-Secret im Repo Spieltisch.
 - [ ] **Worker-Secret `DEPLOY_TOKEN` löschen** (nach dem Spieltisch-Umbau): Workers & Pages → **spieltisch → Settings → Variables and Secrets** → `DEPLOY_TOKEN` → löschen → **Deploy**.
 - [ ] **Alte Account-Tokens löschen:** `github-actions-abfahrt`, `spieltisch-vorschau-cleanup`, `spieltisch-deploy-updates` (Manage account → Account API tokens → **⋯ → Delete**).
+- [ ] **Alte User-Tokens löschen** (nach dem Wechsel des Spieltisch-Bau-Tokens): `spieltisch-build` und `Workers Builds - 2026-11-18 19:41` (My Profile → API Tokens).
 
 ---
 
