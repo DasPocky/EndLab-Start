@@ -15,7 +15,8 @@ jeweiligen Worker und gehen am Startseiten-Worker vorbei.
 - Konto EndLab, Worker `endlab-start`, Konto-ID in `wrangler.jsonc`.
 - Keine Datenbank, kein Speicher, keine Worker-Secrets. Eigene Dateien
   (Manifest, Service Worker, Icons) liegen im Code (`src/dateien.js`).
-- `workers_dev` ist aus.
+- `workers_dev` ist aus; `preview_urls` ist an, damit Vorschauen eine
+  `workers.dev`-Adresse bekommen. Die Live-Seite gibt es nur unter endlab.de.
 
 ## Stufen
 

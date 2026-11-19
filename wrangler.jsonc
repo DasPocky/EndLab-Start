@@ -12,6 +12,8 @@
     { "pattern": "www.endlab.de", "custom_domain": true }
   ],
   "workers_dev": false,
+  // Vorschauen bekommen eine workers.dev-Adresse, live bleibt nur endlab.de
+  "preview_urls": true,
   // Staging: Vorschau je Zweig (wrangler preview). Keine Bindungen, also nichts zu trennen.
   "previews": {}
 }
