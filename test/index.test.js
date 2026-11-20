@@ -26,15 +26,18 @@ test("Startseite: Projekte, Sicherheits-Kopfzeilen, keine fremden Skripte", asyn
   const res = await get("https://endlab.de/");
   assert.equal(res.status, 200);
   const html = await res.text();
-  for (const p of PROJECTS) assert.ok(html.includes(p.name));
+  for (const p of PROJECTS) {
+    assert.ok(html.includes(p.name));
+    assert.match(p.href, /^https:\/\/([a-z]+\.)?endlab\.de\//, "absolute Adresse unter endlab.de");
+  }
   assert.match(res.headers.get("content-security-policy"), /script-src 'self'/);
   assert.match(res.headers.get("content-security-policy"), /frame-ancestors 'none'/);
   assert.equal(res.headers.get("x-content-type-options"), "nosniff");
   assert.ok(!/<script(?![^>]*src="\/app\.js")/.test(html), "nur das eigene Skript");
 });
 
-test("Installierbar mit dem Schalter (seit E3 an): ohne weder Manifest noch Hinweis", () => {
-  assert.equal(INSTALL, true);
+test("Installierbar nur mit dem Schalter (aus: jedes Projekt ist eine eigene App)", () => {
+  assert.equal(INSTALL, false);
   assert.ok(!page(false).includes("manifest.webmanifest"));
   assert.ok(!page(false).includes("EndLab installieren"));
   const on = page(true);
