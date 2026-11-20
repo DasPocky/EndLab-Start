@@ -8,6 +8,18 @@ Sie zeigt eine Kachel je Projekt.
 - `test/` – Tests mit Node, ohne Abhängigkeiten
 - `docs/betrieb.md` – Cloudflare, Deploy, Rückweg
 
+## Look und Vollbild
+
+EndLab-Look wie in allen EndLab-Apps: Schrift Sora (selbst ausgeliefert),
+Marineblau mit Eisblau, hell „Welle“, dunkel „Nachthimmel“ nach der
+Systemeinstellung, unten „Powered by EndLab“. Vorlage: das Stilblatt in `src/index.js`, in allen Apps
+gleich halten.
+
+Auf dem Handy reicht die Seite bis an alle Ränder (`viewport-fit=cover`,
+Hintergrund auch auf `<html>`). Bedienbares hält mit
+`env(safe-area-inset-*)` Abstand zu Notch, Kamera-Loch und Home-Leiste, auch
+im Querformat.
+
 ## Prüfen
 
 ```bash
