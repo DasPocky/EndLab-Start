@@ -53,7 +53,7 @@ export function page(install = INSTALL) {
           --ice-soft:#1d3b66; --head:#173a6b; --head2:#0b1a33; } }
   * { box-sizing:border-box; }
   body { margin:0; min-height:100dvh; display:flex; flex-direction:column; background:var(--bg); color:var(--ink);
-         font:16px/1.5 Sora, system-ui, sans-serif; }
+         font:16px/1.5 Sora, system-ui, sans-serif; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
   header { position:relative; overflow:hidden; color:#fff; padding:calc(40px + env(safe-area-inset-top)) 24px 64px;
            background:linear-gradient(160deg, var(--head), var(--head2) 70%); }
   header::after { content:""; position:absolute; left:-10%; right:-10%; bottom:-40px; height:80px; background:var(--bg); border-radius:50% 50% 0 0; }
