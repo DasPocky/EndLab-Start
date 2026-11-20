@@ -21,7 +21,7 @@ Startseite von endlab.de (eigener Worker). Überblick: `README.md`, Betrieb:
 
 ## Arbeiten im Repo
 
-- Kein Scrollen auf dem Handy, keine Markennamen, Papierschnitt-Farben wie der Spieltisch.
+- Kein Scrollen auf dem Handy, keine Markennamen. EndLab-Look: Sora, Marineblau mit Eisblau, hell „Welle“, dunkel „Nachthimmel“ (folgt der Systemeinstellung).
 - Der Service Worker darf **nichts** unter Projektpfaden (`/spieltisch/…` usw.) abfangen oder speichern.
 - Unter `endlab.de` liegen nur eigene, geprüfte Projekte: alle teilen denselben Browserspeicher. Keine fremden Skripte (CSP).
 - Vor dem Commit: `npm run check` (Tests und Probe-Deploy).

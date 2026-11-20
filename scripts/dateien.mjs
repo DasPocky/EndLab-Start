@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const TYPES = { ".js": "text/javascript; charset=utf-8", ".webmanifest": "application/manifest+json", ".png": "image/png" };
+const TYPES = { ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".webmanifest": "application/manifest+json", ".png": "image/png" };
 const out = {};
 const walk = (dir, base = "") => {
   for (const name of readdirSync(dir).sort()) {
