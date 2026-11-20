@@ -1,21 +1,21 @@
 /**
  * Startseite von endlab.de (Worker „endlab-start“) – www leitet auf die Hauptdomain.
  *
- * Ziel (siehe docs/plan.md): eine installierbare App „EndLab“, darin alle Projekte unter eigenen Pfaden
- * (endlab.de/spieltisch/…) – ein Speicher, ein Profil. Die Projekte laufen als eigene Worker über spezifischere
- * Routen (endlab.de/spieltisch*), diese Startseite bekommt ihre Pfade nie zu sehen.
- */
-
-/**
- * Installierbar, seit der Spieltisch unter endlab.de/spieltisch läuft (Schritt E3): eine App, ein Speicher für alle Projekte.
+ * Kacheln zu den Projekten. Jedes Projekt hat seine eigene Unterdomain und installiert sich selbst als App.
+ * Frühere Pfade (endlab.de/spieltisch*, /tasto*, /abfahrt*) gehören weiter den Projekt-Workern, die von dort
+ * umziehen; diese Startseite bekommt sie nie zu sehen.
  */
 import { DATEIEN } from "./dateien.js";
 
-export const INSTALL = true;
+/** Startseite selbst als App installierbar? Aus: jedes Projekt ist seine eigene App. */
+export const INSTALL = false;
 
-/** Projekte auf der Startseite (Pfade unter endlab.de – dieselbe App) */
+/** Projekte auf der Startseite */
 export const PROJECTS = [
-  { href: "/spieltisch/", icon: "🎲", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele für den Abend mit Freunden – direkt im Browser." },
+  { href: "https://spieltisch.endlab.de/", icon: "🎲", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele für den Abend mit Freunden – direkt im Browser." },
+  // Bis Abfahrt auf der eigenen Adresse ausgeliefert wird, über den alten Pfad – er zieht danach selbst um
+  { href: "https://endlab.de/abfahrt/", icon: "🚏", name: "Abfahrt", text: "Abfahrten in Echtzeit für Bus und Bahn, mit Verbindungen und Störungen." },
+  { href: "https://tasto.endlab.de/", icon: "⌨️", name: "Tasto", text: "Tipptrainer für das 10-Finger-System, mit Bestenliste." },
 ];
 
 /** Eigene Dateien (aus public/, per scripts/dateien.mjs in den Code gelegt – kein Datei-Upload nötig) */

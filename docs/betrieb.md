@@ -7,8 +7,13 @@
 | endlab.de | eigene Domain am Worker `endlab-start` |
 | www.endlab.de | eigene Domain, leitet auf endlab.de um |
 
-Die Pfade `endlab.de/spieltisch*`, `/tasto*`, `/abfahrt*` sind Routen der
-jeweiligen Worker und gehen am Startseiten-Worker vorbei.
+Die Startseite zeigt Kacheln zu den Projekten auf ihren eigenen Unterdomains
+(`PROJECTS` in `src/index.js`). Sie ist selbst nicht mehr als App
+installierbar (`INSTALL` aus); jedes Projekt installiert sich selbst.
+
+Die früheren Pfade `endlab.de/spieltisch*`, `/tasto*`, `/abfahrt*` sind
+weiter Routen der jeweiligen Worker und gehen am Startseiten-Worker vorbei.
+Die Worker leiten von dort auf ihre Unterdomain um.
 
 ## Cloudflare
 

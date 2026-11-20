@@ -4,7 +4,7 @@ Startseite von **https://endlab.de** (Cloudflare Worker `endlab-start`).
 Sie zeigt eine Kachel je Projekt.
 
 - `src/index.js` – Startseite, www → endlab.de, Sicherheits-Kopfzeilen, eigene Dateien
-- `public/` – Manifest, Service Worker (fasst Projektpfade nie an), Installationshinweis, Icons
+- `public/` – Manifest, Service Worker (fasst Projektpfade nie an), Installationshinweis (abgeschaltet), Icons
 - `test/` – Tests mit Node, ohne Abhängigkeiten
 - `docs/betrieb.md` – Cloudflare, Deploy, Rückweg
 
