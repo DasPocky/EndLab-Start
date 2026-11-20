@@ -12,21 +12,20 @@ export const INSTALL = false;
 
 /** Projekte auf der Startseite */
 export const PROJECTS = [
-  { href: "https://spieltisch.endlab.de/", icon: "🎲", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele für den Abend mit Freunden – direkt im Browser." },
-  // Bis Abfahrt auf der eigenen Adresse ausgeliefert wird, über den alten Pfad – er zieht danach selbst um
-  { href: "https://endlab.de/abfahrt/", icon: "🚏", name: "Abfahrt", text: "Abfahrten in Echtzeit für Bus und Bahn, mit Verbindungen und Störungen." },
-  { href: "https://tasto.endlab.de/", icon: "⌨️", name: "Tasto", text: "Tipptrainer für das 10-Finger-System, mit Bestenliste." },
+  { href: "https://spieltisch.endlab.de/", icon: "/icons/apps/spieltisch.png", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele für den Abend mit Freunden – direkt im Browser." },
+  { href: "https://abfahrt.endlab.de/", icon: "/icons/apps/abfahrt.png", name: "Abfahrt", text: "Abfahrten in Echtzeit für Bus und Bahn, mit Verbindungen und Störungen." },
+  { href: "https://tasto.endlab.de/", icon: "/icons/apps/tasto.png", name: "Tasto", text: "Tipptrainer für das 10-Finger-System, mit Bestenliste." },
 ];
 
 /** Eigene Dateien (aus public/, per scripts/dateien.mjs in den Code gelegt – kein Datei-Upload nötig) */
-export const FILES = ["/fonts/sora-400.woff2", "/fonts/sora-700.woff2", "/manifest.webmanifest", "/sw.js", "/app.js", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png", "/icons/apple-touch-icon.png"];
+export const FILES = ["/fonts/sora-400.woff2", "/fonts/sora-700.woff2", "/manifest.webmanifest", "/sw.js", "/app.js", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png", "/icons/apple-touch-icon.png", ...PROJECTS.map((p) => p.icon)];
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
 export function page(install = INSTALL) {
   const cards = PROJECTS.map((p) => `
   <a class="card" href="${esc(p.href)}">
-    <div class="icon" aria-hidden="true">${p.icon}</div>
+    <img class="icon" src="${esc(p.icon)}" alt="" width="52" height="52">
     <div><strong>${esc(p.name)}</strong><small>${esc(p.text)}</small></div>
     <span class="arrow" aria-hidden="true">›</span>
   </a>`).join("");
@@ -52,21 +51,25 @@ export function page(install = INSTALL) {
   @media (prefers-color-scheme: dark) { :root { --bg:#0b1a33; --card:#14294a; --ink:#eaf6fb; --muted:#9fb4c9; --edge:#0a1730;
           --ice-soft:#1d3b66; --head:#173a6b; --head2:#0b1a33; } }
   * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  /* Vollbild: Kopf und Hintergrund bis an alle Ränder, nur der Inhalt hält Abstand zur Notch (Querformat) */
   body { margin:0; min-height:100dvh; display:flex; flex-direction:column; background:var(--bg); color:var(--ink);
-         font:16px/1.5 Sora, system-ui, sans-serif; padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right); }
-  header { position:relative; overflow:hidden; color:#fff; padding:calc(40px + env(safe-area-inset-top)) 24px 64px;
+         font:16px/1.5 Sora, system-ui, sans-serif; }
+  header { position:relative; overflow:hidden; color:#fff;
+           padding:calc(40px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 64px calc(24px + env(safe-area-inset-left));
            background:linear-gradient(160deg, var(--head), var(--head2) 70%); }
   header::after { content:""; position:absolute; left:-10%; right:-10%; bottom:-40px; height:80px; background:var(--bg); border-radius:50% 50% 0 0; }
   .bubble { position:absolute; border-radius:50%; background:var(--ice); opacity:.35; }
   header .in { position:relative; max-width:420px; margin:0 auto; }
   h1 { font-size:2.4rem; margin:0; letter-spacing:-.02em; line-height:1.1; }
   p.lead { margin:6px 0 0; opacity:.8; }
-  main { width:100%; max-width:420px; margin:0 auto; padding:8px 16px 0; display:grid; gap:14px; }
+  main { width:100%; max-width:calc(420px + env(safe-area-inset-left) + env(safe-area-inset-right)); margin:0 auto;
+         padding:8px calc(16px + env(safe-area-inset-right)) 0 calc(16px + env(safe-area-inset-left)); display:grid; gap:14px; }
   a.card { display:flex; gap:16px; align-items:center; padding:16px; border-radius:22px; text-decoration:none; color:inherit;
            background:var(--card); box-shadow:0 6px 0 var(--edge); transition:transform .15s, box-shadow .15s; }
   a.card:active { transform:translateY(4px); box-shadow:0 2px 0 var(--edge); }
   a.card:focus-visible, button:focus-visible { outline:3px solid var(--ice); outline-offset:3px; }
-  .icon { flex:none; width:52px; height:52px; border-radius:16px; background:var(--ice-soft); display:grid; place-items:center; font-size:28px; }
+  .icon { flex:none; width:52px; height:52px; border-radius:14px; display:block; }
   .card strong { display:block; font-size:1.1rem; }
   .card small { color:var(--muted); font-size:.9rem; line-height:1.4; display:block; }
   .arrow { margin-left:auto; color:var(--muted); font-size:1.4rem; }
