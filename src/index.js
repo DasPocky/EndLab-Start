@@ -12,9 +12,10 @@ export const INSTALL = false;
 
 /** Projekte auf der Startseite */
 export const PROJECTS = [
-  { href: "https://spieltisch.endlab.de/", icon: "/icons/apps/spieltisch.png", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele für den Abend mit Freunden – direkt im Browser." },
-  { href: "https://abfahrt.endlab.de/", icon: "/icons/apps/abfahrt.png", name: "Abfahrt", text: "Abfahrten in Echtzeit für Bus und Bahn, mit Verbindungen und Störungen." },
-  { href: "https://tasto.endlab.de/", icon: "/icons/apps/tasto.png", name: "Tasto", text: "Tipptrainer für das 10-Finger-System, mit Bestenliste." },
+  { href: "https://spieltisch.endlab.de/", icon: "/icons/apps/spieltisch.png", name: "Spieltisch", text: "Würfel-, Karten- und Partyspiele." },
+  { href: "https://abfahrt.endlab.de/", icon: "/icons/apps/abfahrt.png", name: "Abfahrt", text: "Bus und Bahn in Echtzeit, mit Störungen." },
+  { href: "https://tasto.endlab.de/", icon: "/icons/apps/tasto.png", name: "Tasto", text: "Tipptrainer fürs 10-Finger-System." },
+  { href: "https://healthlog.endlab.de/", icon: "/icons/apps/healthlog.png", name: "HealthLog", text: "Medikamente und Messwerte, privat." },
 ];
 
 /** Eigene Dateien (aus public/, per scripts/dateien.mjs in den Code gelegt – kein Datei-Upload nötig) */
@@ -83,6 +84,38 @@ export function page(install = INSTALL) {
   .logo i { width:10px; height:10px; border-radius:50%; background:var(--ice); }
   @media (prefers-color-scheme: dark) { .logo { background:var(--ice); } .logo i { background:var(--navy); } footer b { color:var(--ice); } }
   @media (prefers-reduced-motion: reduce) { a.card { transition:none; } }
+  /* Niedrige Handys: alles ohne Scrollen auf einen Blick */
+  @media (max-height: 760px) {
+    header { padding-top:calc(24px + env(safe-area-inset-top)); padding-bottom:48px; }
+    h1 { font-size:2rem; }
+    main { gap:10px; }
+    a.card { padding:12px 14px; gap:14px; }
+    .icon { width:46px; height:46px; border-radius:12px; }
+    .card strong { font-size:1rem; }
+    .card small { font-size:.85rem; }
+    .install { margin-top:4px; padding:10px 14px; font-size:.85rem; }
+    footer { padding-top:16px; }
+  }
+  @media (max-height: 600px) {
+    header { padding-top:calc(18px + env(safe-area-inset-top)); padding-bottom:44px; }
+    footer { padding-top:12px; padding-bottom:calc(12px + env(safe-area-inset-bottom)); }
+  }
+  /* Handy quer: Kacheln zweispaltig, Kopf flach */
+  @media (orientation: landscape) and (max-height: 500px) {
+    header { padding-top:calc(14px + env(safe-area-inset-top)); padding-bottom:36px; }
+    h1 { font-size:1.6rem; }
+    header::after { height:36px; bottom:-18px; }
+    p.lead { display:none; }
+    a.card { padding:10px 14px; }
+    main { max-width:calc(760px + env(safe-area-inset-left) + env(safe-area-inset-right)); grid-template-columns:1fr 1fr; }
+    footer { padding-top:10px; padding-bottom:calc(8px + env(safe-area-inset-bottom)); }
+  }
+  /* Schmale Handys: Pfeil weg, damit die Texte zweizeilig bleiben */
+  @media (max-width: 360px) {
+    .arrow { display:none; }
+    p.lead { font-size:.9rem; }
+    header { padding-bottom:40px; }
+  }
 </style>
 </head>
 <body>
